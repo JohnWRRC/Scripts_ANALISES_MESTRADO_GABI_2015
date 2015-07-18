@@ -1,0 +1,38 @@
+cd "E:\data_2015\___john\Gabi_mapeamento_2015_05_d28\GRASS_EXTRACT_METRICAS\__Resultados\SHPS_RESULTS_VWHAT"
+
+# importando os pontos antigos
+files="*.shp"
+for i in $files
+do
+out=`echo $i|awk '{gsub(".shp","_shp");print}'`
+v.in.ogr dsn=$i out=$out -o --o
+done
+
+
+
+
+cd "E:\data_2015\___john\Gabi_mapeamento_2015_05_d28\Shp_Paisagens_point\Pontos_vwhat_merge_join_split"
+
+# importando os novos
+files="*.shp"
+for i in $files
+do
+out=`echo $i|awk '{gsub(".shp","_shp");print}'`
+v.in.ogr dsn=$i out=$out -o --o
+done
+
+
+
+
+cd "E:\data_2015\___john\Gabi_mapeamento_2015_05_d28\GRASS_EXTRACT_METRICAS\__Resultados\SHPS_RESULTS_VWHAT"
+list=`g.mlist vect pattern="**"`
+for i in $list
+do
+#g.remove -f vect=$i
+v.out.ogr in=$i dsn=$i".shp" type=point
+done
+
+
+
+
+
